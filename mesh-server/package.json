@@ -1,0 +1,19 @@
+{
+  "name": "mesh-server",
+  "version": "1.0.0",
+  "description": "web server that provides realtime mesh network routing info",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Krumpus",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "mqtt": "^2.18.8",
+    "p5": "^0.7.2",
+    "rxjs": "^6.3.2",
+    "socket.io": "^2.1.1"
+  }
+}
