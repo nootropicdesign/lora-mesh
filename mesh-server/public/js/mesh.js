@@ -51,8 +51,7 @@ function setup() {
   mesh = new Mesh();
 
   // Start a socket connection to the server
-  // Some day we would run this server somewhere else
-  socket = io.connect('http://localhost:4200');
+  socket = io.connect(getURL());
   // We make a named event called 'mouse' and write an
   // anonymous callback function
   socket.on('mesh-data',
