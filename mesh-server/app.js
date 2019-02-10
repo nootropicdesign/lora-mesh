@@ -6,8 +6,6 @@ var mqtt = require('mqtt');
 const { Observable, Subject, ReplaySubject, from, of, interval } = require('rxjs');
 const { map, take, filter, switchMap } = require('rxjs/operators');
 
-var socketClient;
-
 app.use(express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname + '/public' ));
 app.get('/', function(req, res,next) {
@@ -15,7 +13,6 @@ app.get('/', function(req, res,next) {
 });
 
 io.on('connection', function(client) {
-    socketClient = client;
     client.on('join', function(data) {
         console.log(data);
     });
@@ -27,10 +24,6 @@ io.on('connection', function(client) {
         socketClient.emit('mesh-data', message);
       }
     );
-
-    client.on('disconnect', function() {
-      socketClient = null;
-    });
 });
 
 
@@ -56,11 +49,7 @@ mqttClient.on('connect', function () {
 
 mqttClient.on('message', function (topic, message) {
   console.log(message.toString())
-  if (socketClient) {
-    socketClient.emit('mesh-data', message.toString());
-  } else {
-    console.log("no socketClient");
-  }
+  io.sockets.emit('mesh-data', message.toString());
 })
 
 /*
