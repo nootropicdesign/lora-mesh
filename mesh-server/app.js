@@ -21,7 +21,7 @@ io.on('connection', function(client) {
       function(index) {
         var data = testdata[index % testdata.length];
         var message = JSON.stringify(data);
-        socketClient.emit('mesh-data', message);
+        io.sockets.emit('mesh-data', message);
       }
     );
 });
@@ -110,10 +110,10 @@ var testdata = [
 var source = interval(1000).pipe(map(i => JSON.stringify(testdata[i % testdata.length])))
   .subscribe(message => {
     console.log(message);
-    if (socketClient) {
-      socketClient.emit('mesh-data', message.toString());
+    if (io.sockets) {
+      io.sockets.emit('mesh-data', message.toString());
     } else {
-      console.log("no socketClient");
+      console.log("no socket client");
     }
   });
 */
